@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Contacts</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+</head>
+<body>
+    <h1>Contacts List</h1>
+    <ul>
+        {{#each contact as |contact|}}
+        <div>
+        <li>{{contact.id}}</li>
+        <li>{{contact.Name}}</li>
+        <li>{{contact.Mobile}}</li>
+        <button id="{{contact.id}}" onclick="deleteContact(id)">delete</button>
+        </br>
+        </div>
+        {{/each}}
+    </ul>
+    </br>
+    <button><a href='/add'>add contact</a></button>
+
+    <script>
+        function deleteContact(idno) {
+            $.ajax({
+                url: '/delete',
+                type: 'DELETE',
+                data: {id: idno} ,
+                success: function (response) {
+                    document.location.reload(true);
+                },
+                error: function () {
+                    alert("error");
+                }
+            });
+        }
+    </script>
+</body>
+</html>
